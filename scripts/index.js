@@ -17,12 +17,13 @@ function createCard(cardData, deleteFunction) {
 }
 
 // @todo: Функция удаления карточки
+function deleteCard(event) {
+    event.target.closest('.places__item').remove()
+}
 
 // @todo: Вывести карточки на страницу
 initialCards.forEach(function (initialCard) {
-    let newCard = createCard(initialCard, function () {
-        alert('hello')
-    }); 
+    let newCard = createCard(initialCard, deleteCard); 
     
     placesList.append(newCard);
 });
