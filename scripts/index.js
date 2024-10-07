@@ -23,7 +23,7 @@ function deleteCard(event) {
 
 // @todo: Вывести карточки на страницу
 initialCards.forEach(function (initialCard) {
-    let newCard = createCard(initialCard, deleteCard); 
+    const newCard = createCard(initialCard, deleteCard); 
     
     placesList.append(newCard);
 });
