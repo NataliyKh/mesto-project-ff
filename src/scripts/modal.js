@@ -1,3 +1,28 @@
+export function openModal(domElement) {
+    domElement.classList.add("popup_is-opened");
+}
+
+export function closeModal(domElement) {
+    domElement.classList.remove("popup_is-opened");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export function handleOpenModal(popup) {
     popup.classList.add("popup_is-opened");
     document.addEventListener("keydown", handleCloseModalByEsc);

@@ -1,3 +1,5 @@
+import { openModal, closeModal } from "./modal";
+
 const cardTemplate = document.querySelector("#card-template").content;
 
 export function createCard(cardData, deleteFunction) {
@@ -25,15 +27,14 @@ export function deleteCard(event) {
 
 function openPopup(imageLink) {
     let popup = document.querySelector(".popup_type_image");
+    openModal(popup)
     let popupImage = popup.querySelector(".popup__image");
-
-    popup.classList.add("popup_is-opened");
     popupImage.src = imageLink;
 }
 
 function openPopupBySelector(popupSelector) {
     let popup = document.querySelector(popupSelector);
-    popup.classList.add("popup_is-opened");
+    openModal(popup)
 }
 
 document
