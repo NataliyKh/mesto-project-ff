@@ -30,3 +30,20 @@ function openPopup(imageLink) {
     popup.classList.add("popup_is-opened");
     popupImage.src = imageLink;
 }
+
+function openPopupBySelector(popupSelector) {
+    let popup = document.querySelector(popupSelector);
+    popup.classList.add("popup_is-opened");
+}
+
+document
+    .querySelector(".profile__add-button")
+    .addEventListener("click", function (evt) {
+        openPopupBySelector(".popup_type_new-card");
+    });
+
+document
+    .querySelector(".profile__edit-button")
+    .addEventListener("click", function (evt) {
+        openPopupBySelector(".popup_type_edit");
+    });
