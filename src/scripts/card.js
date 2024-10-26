@@ -1,4 +1,5 @@
-import { openModal, closeModal } from "./modal";
+import { openModal, closeModal } from "./modal.js";
+import * as consts from "./index.js";
 
 const cardTemplate = document.querySelector("#card-template").content;
 
@@ -15,7 +16,8 @@ export function createCard(cardData, deleteFunction) {
     cardElement
         .querySelector(".card__image")
         .addEventListener("click", function (evt) {
-            openPopup(evt.target.src);
+            openModal(consts.popupImage);
+            consts.imageInPopup.src = evt.target.src;
         });
 
     return cardElement;
@@ -24,27 +26,3 @@ export function createCard(cardData, deleteFunction) {
 export function deleteCard(event) {
     event.target.closest(".places__item").remove();
 }
-
-function openPopup(imageLink) {
-    let popup = document.querySelector(".popup_type_image");
-    openModal(popup)
-    let popupImage = popup.querySelector(".popup__image");
-    popupImage.src = imageLink;
-}
-
-function openPopupBySelector(popupSelector) {
-    let popup = document.querySelector(popupSelector);
-    openModal(popup)
-}
-
-document
-    .querySelector(".profile__add-button")
-    .addEventListener("click", function (evt) {
-        openPopupBySelector(".popup_type_new-card");
-    });
-
-document
-    .querySelector(".profile__edit-button")
-    .addEventListener("click", function (evt) {
-        openPopupBySelector(".popup_type_edit");
-    });
