@@ -1,4 +1,3 @@
-import { openModal, closeModal } from "./modal.js";
 import * as consts from "./index.js";
 
 const cardTemplate = document.querySelector("#card-template").content;
@@ -15,10 +14,7 @@ export function createCard(cardData, deleteFunction) {
 
     cardElement
         .querySelector(".card__image")
-        .addEventListener("click", function (evt) {
-            openModal(consts.popupImage);
-            consts.imageInPopup.src = evt.target.src;
-        });
+        .addEventListener("click", consts.handleCardImageClick);
 
     return cardElement;
 }
