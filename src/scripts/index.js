@@ -1,8 +1,8 @@
 import "../pages/index.css";
 import { handleOpenModal, handleCloseModal } from "./modal.js";
-import { createCard, deleteCard } from "./card.js";
+import { createCard, deleteCard, handleCardLike } from "./card.js";
 import { initialCards } from "./cards.js";
-import { openModal, closeModal } from "./modal.js";
+import { openModal, closeModal, handleCloseModelByOverlayClick } from "./modal.js";
 
 const placesList = document.querySelector(".places__list");
 
@@ -28,18 +28,18 @@ const profileAddButton = document.querySelector(".profile__add-button");
 const profileEditButton = document.querySelector(".profile__edit-button");
 
 profileAddButton.addEventListener("click", () => openModal(popupNewCard));
-profileEditButton.addEventListener("click", () => openModal(popupEdit));
+profileEditButton.addEventListener("click", () => {
+    nameInput.value = profileTitle.textContent
+    jobInput.value = profileDescription.textContent
+    openModal(popupEdit)
+});
 
 document.querySelectorAll(".popup__close").forEach((popupCloseButton) => {
     popupCloseButton.addEventListener("click", handleClosePopup);
 });
 
 document.querySelectorAll(".popup").forEach((popup) => {
-    popup.addEventListener("click", (evt) => {
-        if (evt.target == popup) {
-            closeModal(popup);
-        }
-    });
+    popup.addEventListener("click", handleCloseModelByOverlayClick);
     popup.classList.add("popup_is-animated");
 });
 
@@ -54,10 +54,6 @@ function handleCardImageClick(evt) {
         evt.target.parentNode.querySelector(".card__title").textContent;
 
     openModal(popupImage);
-}
-
-function handleCardLike(evt) {
-    evt.target.classList.toggle("card__like-button_is-active");
 }
 
 initialCards.forEach(function (initialCard) {
@@ -76,7 +72,6 @@ function handleEditProfileFormSubmit(evt) {
     profileTitle.textContent = nameInput.value;
     profileDescription.textContent = jobInput.value;
 
-    editProfileForm.reset();
     closeModal(popupEdit);
 }
 

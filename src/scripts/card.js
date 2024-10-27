@@ -16,6 +16,10 @@ export function createCard(cardData, deleteFunction, openCardPopupFunction, card
     return cardElement;
 }
 
-export function deleteCard(event) {
-    event.target.closest(".places__item").remove();
+export function deleteCard(evt) {
+    evt.target.closest(".places__item").remove();
+}
+
+export function handleCardLike(evt) {
+    evt.target.classList.toggle("card__like-button_is-active");
 }

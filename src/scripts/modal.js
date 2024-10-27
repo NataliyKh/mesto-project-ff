@@ -15,4 +15,9 @@ function handleCloseModalByEsc(evt) {
     }
 }
 
+export function handleCloseModelByOverlayClick(evt) {
+    if (evt.target.classList.contains('popup')) {
+        closeModal(evt.target);
+    }
+}
 
