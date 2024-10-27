@@ -41,7 +41,6 @@ export function handleCardImageClick(evt) {
 }
 
 initialCards.forEach(function (initialCard) {
-    const newCard = createCard(initialCard, deleteCard);
-
+    const newCard = createCard(initialCard, deleteCard, handleCardImageClick);
     placesList.append(newCard);
 });
