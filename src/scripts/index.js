@@ -40,6 +40,7 @@ document.querySelectorAll(".popup").forEach((popup) => {
             closeModal(popup)
         }
     })
+    popup.classList.add('popup_is-animated')
 })
 
 function handleClosePopup(evt) {
