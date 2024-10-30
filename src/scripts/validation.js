@@ -53,7 +53,6 @@ function toogleButtonState(inputList, buttonElement, validationConfig) {
 }
 
 export function clearValidation(formElement, validationConfig) {
-
     const buttonElement = formElement.querySelector(
         validationConfig.submitButtonSelector
     );
