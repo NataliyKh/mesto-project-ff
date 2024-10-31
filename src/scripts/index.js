@@ -11,7 +11,7 @@ import {
     changeAvatarRequest,
 } from "./api.js";
 
-export let accountId = "";
+let accountId = "";
 const cardsList = document.querySelector(".places__list");
 
 // CARD POPUP
