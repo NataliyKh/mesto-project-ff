@@ -1,5 +1,9 @@
 import "../pages/index.css";
-import { likeCard, createCardElement as createCardElemenentFuncFromCardJs } from "./card.js";
+import {
+    likeCard,
+    createCardElement as createCardElemenentFuncFromCardJs,
+    deleteCard,
+} from "./card.js";
 import { openModal, closeModal, handleCloseModelByOverlayClick } from "./modal.js";
 import { enableValidation, clearValidation } from "./validation.js";
 import {
@@ -12,6 +16,8 @@ import {
 } from "./api.js";
 
 let accountId = "";
+let currentCardIdForDeletion;
+let currentCardElemForDeletion;
 const cardsList = document.querySelector(".places__list");
 
 // CARD POPUP
@@ -51,7 +57,7 @@ const popupAvatarLinkInput = popupAvatarForm.elements.link;
 
 // DELETE CARD POPUP
 const popupDeleteCard = document.querySelector(".popup_delete-image");
-const popupDeleteCardButton = popupDeleteCard.querySelector(".popup__button");
+const popupDeleteCardForm = document.forms["delete-card"];
 
 const validationConfig = {
     formSelector: ".popup__form",
@@ -133,9 +139,10 @@ function handleAvatarFormSubmit(evt) {
 }
 
 // для попапа карточки
-function handleCardImageClick(evt) {
-    imageInPopup.src = evt.target.src;
-    popupImageCaption.textContent = evt.target.parentNode.querySelector(".card__title").textContent;
+function openCardPopup(name, link) {
+    imageInPopup.src = link;
+    imageInPopup.alt = name;
+    popupImageCaption.textContent = name;
 
     openModal(popupBigCard);
 }
@@ -171,8 +178,8 @@ function handleAddCardFormSubmit(evt) {
 function createCardElement(cardData) {
     return createCardElemenentFuncFromCardJs(
         cardData,
-        deleteMyCard,
-        handleCardImageClick,
+        openDeleteConfirmationPopup,
+        openCardPopup,
         likeCard,
         accountId
     );
@@ -187,25 +194,17 @@ function renderSaving(isLoading, button) {
 }
 
 // ВСЁ про УДАЛЕНИЕ КАРТОЧКИ
-function deleteMyCard(card) {
-    popupDeleteCardButton.dataset.cardId = card["_id"];
+function openDeleteConfirmationPopup(cardId, cardElement) {
+    currentCardIdForDeletion = cardId;
+    currentCardElemForDeletion = cardElement;
 
     openModal(popupDeleteCard);
 }
 
-popupDeleteCardButton.addEventListener("click", (evt) => {
-    evt.preventDefault();
-
-    const cardId = popupDeleteCardButton.dataset.cardId;
-    deleteCardRequest(cardId)
-        .then(() => {
-            const cardForDeletion = document.getElementById(cardId);
-
-            cardForDeletion.remove();
-            popupDeleteCardButton.dataset.cardId = "";
-            closeModal(popupDeleteCard);
-        })
-        .catch((err) => console.log(err));
+popupDeleteCardForm.addEventListener("submit", (evt) => {
+    evt.preventDefault()
+    deleteCard(currentCardIdForDeletion, currentCardElemForDeletion)
+        .then(() => closeModal(popupDeleteCard))
 });
 
 // загрузка изначальный карточек и информации профиля
