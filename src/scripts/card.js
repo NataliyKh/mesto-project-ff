@@ -38,7 +38,7 @@ export function likeCard(card, myId, cardElement) {
     const cardHasMyLike = hasMyLike(card, myId);
     const addOrDeleteRequest = cardHasMyLike ? deleteLikeRequest : addLikeRequest;
 
-    addOrDeleteRequest(card)
+    addOrDeleteRequest(card["_id"])
         .then((res) => {
             setStateForLikeButton(likeButton, !cardHasMyLike);
             likesCounter.textContent = res.likes.length;

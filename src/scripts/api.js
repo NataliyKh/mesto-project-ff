@@ -70,10 +70,10 @@ export function getCardsRequest() {
     return get("/cards");
 }
 
-export function deleteLikeRequest(card) {
-    return post(`/cards/likes/${card["_id"]}`, {}, "DELETE");
+export function deleteLikeRequest(cardId) {
+    return post(`/cards/likes/${cardId}`, {}, "DELETE");
 }
 
-export function addLikeRequest(card) {
-    return post(`/cards/likes/${card["_id"]}`, {}, "PUT");
+export function addLikeRequest(cardId) {
+    return post(`/cards/likes/${cardId}`, {}, "PUT");
 }
